@@ -1,0 +1,6 @@
+1) El cliente soporta TLS 1.1
+2) El cliente soporta 14 cipher suites.
+3) El servidor soporta TLS 1.1
+4) La cipher suite seleccionada por el servidor es TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (0xc013)
+5) El algoritmo de firma usado en el certificado del servidor es: Algorithm Id: 1.2.840.113549.1.1.5 (shaWithRSAEncryption)
+6) La longitud de la clave pública tipo EC Diffie-Hellman es 65.

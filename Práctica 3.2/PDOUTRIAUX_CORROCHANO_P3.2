@@ -1,0 +1,165 @@
+DOUTRIAUX CORROCHANO
+
+ENTREGA 1
+
+usuario@debian:~$ sudo hping3 --icmp --flood --rand-source 192.168.1.2
+HPING 192.168.1.2 (eth1 192.168.1.2): icmp mode set, 28 headers + 0 data bytes
+hping in flood mode, no replies will be shown
+^C
+--- 192.168.1.2 hping statistic ---
+25691840 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+ 
+ 
+ 
+ 
+ENTREGA 2
+
+usuario@debian:~$ sudo ip route show cache
+local 192.168.1.11 from 192.168.1.10 dev lo  src 192.168.1.11 
+    cache <local,src-direct>  iif eth1
+local 192.168.1.11 from 192.168.1.1 dev lo  src 192.168.1.11 
+    cache <local,src-direct>  iif eth1
+
+ENTREGA 2 (2)
+    
+ANTES DE wget 192.168.1.11    
+    
+root@debian:/home/usuario# netstat -ant
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:21              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:23              0.0.0.0:*               LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN   
+
+DESPUÉS DE wget 192.168.1.11
+
+root@debian:/home/usuario# netstat -ant
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:21              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:23              0.0.0.0:*               LISTEN     
+tcp        0      0 192.168.1.11:80         192.168.1.10:33230      TIME_WAIT  
+tcp6       0      0 :::22                   :::*                    LISTEN  
+
+
+
+
+
+ENTREGA 3
+
+usuario@debian:~$ nmap -sT 192.168.1.11 -p 20-25
+
+Starting Nmap 6.00 ( http://nmap.org ) at 2020-03-10 13:24 CET
+Nmap scan report for 192.168.1.11
+Host is up (0.00047s latency).
+PORT   STATE  SERVICE
+20/tcp closed ftp-data
+21/tcp open   ftp
+22/tcp open   ssh
+23/tcp open   telnet
+24/tcp closed priv-mail
+25/tcp closed smtp
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+
+
+usuario@debian:~$ sudo nmap -sS 192.168.1.11-p 20-25
+
+Starting Nmap 6.00 ( http://nmap.org ) at 2020-03-10 13:24 CET
+Failed to resolve given hostname/IP: 192.168.1.11-p.  Note that you can't use '/mask' AND '1-4,7,100-' style IP ranges. If the machine only has an IPv6 address, add the Nmap -6 flag to scan that.
+Invalid target host specification: 20-25
+WARNING: No targets were specified, so 0 hosts scanned.
+Nmap done: 0 IP addresses (0 hosts up) scanned in 0.05 seconds
+
+
+usuario@debian:~$ sudo nmap -sA 192.168.1.11 -p 20-25
+
+Starting Nmap 6.00 ( http://nmap.org ) at 2020-03-10 13:24 CET
+Nmap scan report for 192.168.1.11
+Host is up (0.00023s latency).
+PORT   STATE      SERVICE
+20/tcp unfiltered ftp-data
+21/tcp unfiltered ftp
+22/tcp unfiltered ssh
+23/tcp unfiltered telnet
+24/tcp unfiltered priv-mail
+25/tcp unfiltered smtp
+MAC Address: 08:00:27:BE:D3:7E (Cadmus Computer Systems)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.02 seconds
+
+
+usuario@debian:~$ sudo nmap -sF 192.168.1.11 -p 20-25
+
+Starting Nmap 6.00 ( http://nmap.org ) at 2020-03-10 13:24 CET
+Nmap scan report for 192.168.1.11
+Host is up (0.00015s latency).
+PORT   STATE         SERVICE
+20/tcp closed        ftp-data
+21/tcp open|filtered ftp
+22/tcp open|filtered ssh
+23/tcp open|filtered telnet
+24/tcp closed        priv-mail
+25/tcp closed        smtp
+MAC Address: 08:00:27:BE:D3:7E (Cadmus Computer Systems)
+
+Nmap done: 1 IP address (1 host up) scanned in 1.24 seconds
+
+
+usuario@debian:~$ sudo nmap -sN 192.168.1.11 -p 20-25
+
+Starting Nmap 6.00 ( http://nmap.org ) at 2020-03-10 13:24 CET
+Nmap scan report for 192.168.1.11
+Host is up (0.00015s latency).
+PORT   STATE         SERVICE
+20/tcp closed        ftp-data
+21/tcp open|filtered ftp
+22/tcp open|filtered ssh
+23/tcp open|filtered telnet
+24/tcp closed        priv-mail
+25/tcp closed        smtp
+MAC Address: 08:00:27:BE:D3:7E (Cadmus Computer Systems)
+
+Nmap done: 1 IP address (1 host up) scanned in 1.23 seconds
+
+
+
+
+
+
+ENTREGA 4
+
+usuario@debian:~$ sudo nmap -O 192.168.1.11
+
+Starting Nmap 6.00 ( http://nmap.org ) at 2020-03-10 13:28 CET
+Nmap scan report for 192.168.1.11
+Host is up (0.00068s latency).
+Not shown: 996 closed ports
+PORT   STATE SERVICE
+21/tcp open  ftp
+22/tcp open  ssh
+23/tcp open  telnet
+80/tcp open  http
+MAC Address: 08:00:27:BE:D3:7E (Cadmus Computer Systems)
+No exact OS matches for host (If you know what OS is running on it, see http://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=6.00%E=4%D=3/10%OT=21%CT=1%CU=32853%PV=Y%DS=1%DC=D%G=Y%M=080027%T
+OS:M=5E6787DC%P=x86_64-unknown-linux-gnu)SEQ(SP=107%GCD=1%ISR=10D%TI=Z%CI=I
+OS:%II=I%TS=8)OPS(O1=M5B4ST11NW4%O2=M5B4ST11NW4%O3=M5B4NNT11NW4%O4=M5B4ST11
+OS:NW4%O5=M5B4ST11NW4%O6=M5B4ST11)WIN(W1=3890%W2=3890%W3=3890%W4=3890%W5=38
+OS:90%W6=3890)ECN(R=Y%DF=Y%T=41%W=3908%O=M5B4NNSNW4%CC=Y%Q=)T1(R=Y%DF=Y%T=4
+OS:1%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=41%W=0%S=A%A=Z%F=R%O
+OS:=%RD=0%Q=)T5(R=Y%DF=Y%T=41%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=41
+OS:%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=41%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q
+OS:=)U1(R=Y%DF=N%T=41%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y
+OS:%DFI=N%T=41%CD=S)
+
+Network Distance: 1 hop
+
+OS detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 11.63 seconds

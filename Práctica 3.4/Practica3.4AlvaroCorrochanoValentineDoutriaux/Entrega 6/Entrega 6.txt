@@ -1,0 +1,6 @@
+[**] [1:10000003:1] FTP server Smiley Face Backdoor [**]
+[Priority: 0] 
+05/18-00:30:55.966724 1.1.1.10:59882 -> 192.168.1.11:21
+TCP TTL:63 TOS:0x0 ID:63299 IpLen:20 DgmLen:64 DF
+***AP*** Seq: 0xEA671A6A  Ack: 0x25CE54B8  Win: 0x391  TcpLen: 32
+TCP Options (3) => NOP NOP TS: 3785074 1401867 

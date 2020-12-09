@@ -1,0 +1,8 @@
+Propiedades de la conexión: Conexión encriptada por 128-bit encryption
+
+Versión de TLS: TLS 1.1
+
+Mecanismos criptográficos:
+	Conexión cifrada: AES_128_CBC
+	Autentificación de mensajes: SHA1
+	Intercambio de claves: ECDHE_RSA

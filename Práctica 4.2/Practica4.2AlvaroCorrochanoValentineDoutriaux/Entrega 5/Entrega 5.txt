@@ -1,0 +1,13 @@
+- Entrega 3:
+
+Content-Type: text/plain; charset=utf-8; format=flowed
+
+En este caso el campo significa que el mensaje está escrito en texto plano (sin cifrar) 
+con codificación utf-8 y mostrando el texto en formato flowed (sin > delante).
+
+
+- Entrega 4:
+
+Content-Type: application/pkcs7-mime; name="smime.p7m"; smime-type=enveloped-data
+
+En este otro caso el campo significa que el mensaje está cifrado con pkcs7.

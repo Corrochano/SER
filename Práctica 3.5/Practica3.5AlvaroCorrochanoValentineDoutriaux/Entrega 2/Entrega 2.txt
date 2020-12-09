@@ -1,0 +1,54 @@
+root@debian:/home/usuario#  sudo ip xfrm policy
+src 192.168.2.0/24 dst 192.168.1.0/24 
+	dir out priority 2147483648 ptype main 
+	tmpl src 2.2.2.2 dst 1.1.1.1
+		proto esp reqid 0 mode tunnel
+src 192.168.1.0/24 dst 192.168.2.0/24 
+	dir out priority 2147483648 ptype main 
+	tmpl src 1.1.1.1 dst 2.2.2.2
+		proto esp reqid 0 mode tunnel
+src ::/0 dst ::/0 
+	socket in priority 0 ptype main 
+src ::/0 dst ::/0 
+	socket out priority 0 ptype main 
+src ::/0 dst ::/0 
+	socket in priority 0 ptype main 
+src ::/0 dst ::/0 
+	socket out priority 0 ptype main 
+src ::/0 dst ::/0 
+	socket in priority 0 ptype main 
+src ::/0 dst ::/0 
+	socket out priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+	socket in priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+	socket out priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+	socket in priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+	socket out priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+	socket in priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+	socket out priority 0 ptype main 
+src ::/0 dst ::/0 
+	socket out priority 0 ptype main 
+src ::/0 dst ::/0 
+	socket in priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+	socket out priority 0 ptype main 
+src 0.0.0.0/0 dst 0.0.0.0/0 
+	socket in priority 0 ptype main 
+root@debian:/home/usuario# sudo ip xfrm state
+src 2.2.2.2 dst 1.1.1.1
+	proto esp spi 0x00000301 reqid 0 mode tunnel
+	replay-window 0 
+	auth-trunc hmac(md5) 0x64226745ac2cc64e4e0263cd3763b66c 96
+	enc cbc(des3_ede) 0x64bc466b2da896d4a3efc0add342ff39ea02143deb0f60c8
+	sel src 0.0.0.0/0 dst 0.0.0.0/0 
+src 1.1.1.1 dst 2.2.2.2
+	proto esp spi 0x00000201 reqid 0 mode tunnel
+	replay-window 0 
+	auth-trunc hmac(md5) 0x5426b1f8aba9e1f19a4094de628d8f7e 96
+	enc cbc(des3_ede) 0x61ee6b3ea1564a459ed70f63234a94bafdeaf469f1ef1925
+	sel src 0.0.0.0/0 dst 0.0.0.0/0 

@@ -1,0 +1,30 @@
+-----------COMANDOS QUE HE USADO:---------------------------------------------------------------------------------------------------
+
+sudo iptables -P INPUT DROP
+sudo iptables -P OUTPUT DROP
+sudo iptables -P FORWARD DROP
+
+sudo iptables -A INPUT -i lo -j ACCEPT
+sudo iptables -A OUTPUT -o lo -j ACCEPT
+
+sudo iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A FORWARD -i eth1 -j ACCEPT
+sudo iptables -A FORWARD -m conntrack  --ctstate NEW -p tcp --dport ssh -j ACCEPT
+sudo iptables -A FORWARD -m conntrack --ctstate NEW -p tcp --dport http -j ACCEPT -d 192.168.1.10
+sudo iptables -I FORWARD 3 -p tcp --dport http -j DROP -i eth2 -s 192.168.1.0/24
+sudo iptables -I FORWARD 4 -p tcp --dport http -j DROP -i eth1 ! -s 192.168.1.0/24
+sudo iptables -I FORWARD 3 -p tcp --dport http -j LOG --log-prefix "IP Spoofing" --log-level warning -i eth2 -s 192.168.1.0/24
+sudo iptables -I FORWARD 4 -p tcp --dport http -j LOG --log-prefix "IP Spoofing" --log-level warning -i eth1 ! -s 192.168.1.0/24
+
+sudo iptables -t nat -A POSTROUTING -o eth2 -j MASQUERADE
+sudo iptables -A FORWARD -m conntrack --ctstate NEW  -i eth1  -j ACCEPT
+sudo iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80  -i eth2 -j DNAT --to 192.168.1.10:80
+sudo iptables -A FORWARD -m conntrack --ctstate NEW -p tcp --dport 80 -j ACCEPT -d 192.168.1.10
+sudo iptables -t nat -A PREROUTING -p tcp --dport 22  -i eth2 -j DNAT --to 192.168.1.11:22
+sudo iptables -A FORWARD -m conntrack --ctstate NEW -p tcp --dport 22 -j ACCEPT -d 192.168.1.11
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
